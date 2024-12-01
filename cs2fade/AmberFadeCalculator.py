@@ -4,7 +4,8 @@ __date__ = "12.07.2023"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
-from src.BaseCalculator import BaseCalculator
+
+from cs2fade.BaseCalculator import BaseCalculator
 
 
 class AmberFadeCalculator(BaseCalculator):

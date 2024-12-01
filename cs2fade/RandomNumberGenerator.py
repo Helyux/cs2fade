@@ -4,8 +4,6 @@ __date__ = "12.07.2023"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
-import math
-
 
 class RandomNumberGenerator:
     """

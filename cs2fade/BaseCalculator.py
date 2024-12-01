@@ -1,14 +1,8 @@
-__author__ = "Lukas Mahler"
-__version__ = "1.1.6"
-__date__ = "06.10.2024"
-__email__ = "m@hler.eu"
-__status__ = "Production"
-
-from src.RandomNumberGenerator import RandomNumberGenerator
+__date__ = "02.12.2024"
+from cs2fade.RandomNumberGenerator import RandomNumberGenerator
 
 
 class FadePercentage:
-
     def __init__(self, seed, percentage, ranking):
         self.seed = seed
         self.percentage = percentage
@@ -16,43 +10,60 @@ class FadePercentage:
 
 
 class WeaponFadePercentage:
-
     def __init__(self, weapon, percentages):
         self.weapon = weapon
         self.percentages = percentages
 
 
 class BaseCalculator:
+    _instances = {}
+
+    def __new__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__new__(cls)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
 
     def __init__(self):
-        self.weapons = []
-        self.reversed_weapons = []
-        self.trade_up_weapons = []
-        self.configs = {}
-        self.min_percentage = 80
+        if not hasattr(self, "initialized"):
+            self.initialized = True
+            self.weapons = []
+            self.reversed_weapons = []
+            self.trade_up_weapons = []
+            self.configs = {}
+            self.min_percentage = 80
 
-    def get_supported_weapons(self):
-        return self.weapons
+    @classmethod
+    def supported_weapons(cls):
+        instance = cls()
+        return instance.weapons
 
-    def get_fade_percentage(self, weapon, seed):
-        percentages = self.get_fade_percentages(weapon)
+    @classmethod
+    def get_percentage(cls, weapon, seed):
+        """Class-level method to get the fade percentage for a weapon and seed."""
+        instance = cls()  # Get the singleton instance
+        percentages = instance.get_fade_percentages(weapon)
         return percentages[seed]
 
-    def get_all_fade_percentages(self):
+    @classmethod
+    def get_all_percentages(cls):
+        """Class-level method to get all fade percentages."""
+        instance = cls()  # Get the singleton instance
         return [
-            WeaponFadePercentage(weapon, self.get_fade_percentages(weapon))
-            for weapon in self.weapons
+            WeaponFadePercentage(weapon, instance.get_fade_percentages(weapon))
+            for weapon in instance.weapons
         ]
 
-    def get_fade_percentages(self, weapon):
-        if weapon not in self.weapons:
+    @classmethod
+    def get_fade_percentages(cls, weapon):
+        """Class-level method to get fade percentages for a specific weapon."""
+        instance = cls()  # Get the singleton instance
+        if weapon not in instance.weapons:
             raise ValueError(f'The weapon "{weapon}" is currently not supported.')
 
-        config = self.configs.get(weapon, self.configs['default'])
-
+        config = instance.configs.get(weapon, instance.configs['default'])
         raw_results = []
-
-        max_seed = 1000 if weapon in self.trade_up_weapons else 999
+        max_seed = 1000 if weapon in instance.trade_up_weapons else 999
 
         for i in range(max_seed + 1):
             random_number_generator = RandomNumberGenerator()
@@ -61,11 +72,9 @@ class BaseCalculator:
             x_offset = random_number_generator.random_float(
                 config['pattern_offset_x_start'], config['pattern_offset_x_end']
             )
-
             random_number_generator.random_float(
                 config['pattern_offset_y_start'], config['pattern_offset_y_end']
             )
-
             rotation = random_number_generator.random_float(
                 config['pattern_rotate_start'], config['pattern_rotate_end']
             )
@@ -82,7 +91,7 @@ class BaseCalculator:
 
             raw_results.append(raw_result)
 
-        is_reversed = weapon in self.reversed_weapons
+        is_reversed = weapon in instance.reversed_weapons
 
         if is_reversed:
             best_result = min(raw_results)
@@ -92,18 +101,16 @@ class BaseCalculator:
             worst_result = min(raw_results)
 
         result_range = worst_result - best_result
-
         percentage_results = [
             (worst_result - raw_result) / result_range
             for raw_result in raw_results
         ]
-
         sorted_percentage_results = sorted(percentage_results)
 
         return [
             FadePercentage(
                 i,
-                self.min_percentage + (percentage_result * (100 - self.min_percentage)),
+                instance.min_percentage + (percentage_result * (100 - instance.min_percentage)),
                 min(
                     sorted_percentage_results.index(percentage_result) + 1,
                     len(sorted_percentage_results) - sorted_percentage_results.index(percentage_result)
