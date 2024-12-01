@@ -1,43 +1,46 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "18.07.2023"
+__date__ = "02.12.2024"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
-import json
 
-from src.FadeCalculator import FadeCalculator
-from src.AmberFadeCalculator import AmberFadeCalculator
-from src.AcidFadeCalculator import AcidFadeCalculator
+import json
+import os
+
+from cs2fade import AcidFade, AmberFade, Fade
 
 
 def main():
     """
-    Generate static .json files, this is different from the original typescript repository.
+    Generate static .json files, this is different from the original TypeScript repository.
     I like this .json format more for accessing the seeds later.
-    e.g. ['AWP]['42']['percentage'] where 42 is the seed.
+    e.g. ['AWP']['42']['percentage'], where 42 is the seed.
     """
 
-    # Create instances of the calculators
-    fade_calc = FadeCalculator()
-    amber_calc = AmberFadeCalculator()
-    acid_calc = AcidFadeCalculator()
+    # Ensure the output directory exists
+    output_dir = os.path.normpath("./generated")
+    os.makedirs(output_dir, exist_ok=True)
 
     # Build a new dict using format [WEAPON][SEED] = seed, percentage, ranking
-    for calc, name in [(fade_calc, 'fade'), (amber_calc, 'fade_amber'), (acid_calc, 'fade_acid')]:
+    for calc_cls, name in [(Fade, 'fade'), (AmberFade, 'fade_amber'), (AcidFade, 'fade_acid')]:
         rebuild = {}
-        for obj in calc.get_all_fade_percentages():
-            rebuild[obj.weapon] = {}
+        for obj in calc_cls.get_all_percentages():
+            weapon_name = obj.weapon
+            rebuild[weapon_name] = {}
             for subobj in obj.percentages:
-                rebuild[obj.weapon][subobj.seed] = {
+                rebuild[weapon_name][subobj.seed] = {
                     'seed': subobj.seed,
                     'percentage': subobj.percentage,
                     'ranking': subobj.ranking
                 }
 
-        # dump the new dicts to a json file using 4 indents under ./generated
-        with open(f"./generated/{name}.json", 'w') as jf:
+        # Dump the new dicts to a JSON file using 4 indents under ./generated
+        output_path = os.path.normpath(os.path.join(output_dir, f"{name}.json"))
+        with open(output_path, 'w') as jf:
             json.dump(rebuild, jf, indent=4)
+
+        print(f"Generated JSON for {name:10s}: {output_path}")
 
 
 if __name__ == '__main__':
