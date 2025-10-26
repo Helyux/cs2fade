@@ -30,5 +30,5 @@ If you notice any errors, please feel free to open an issue or pull request.
 [issues-url]: https://github.com/Helyux/cs2fade/issues
 [downloads-shield]: https://img.shields.io/pepy/dt/cs2fade?style=for-the-badge
 [downloads-url]: https://pepy.tech/project/cs2fade
-[license-shield]: https://img.shields.io/badge/License-GPLv3-brightgreen.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/License-GPLv3-red.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2fade/blob/master/LICENSE
