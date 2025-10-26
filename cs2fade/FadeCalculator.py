@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
-__version__ = "1.1.6"
-__date__ = "06.10.2024"
+__version__ = "1.2.0"
+__date__ = "26.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -53,12 +53,32 @@ class FadeCalculator(BaseCalculator):
 
         self.trade_up_weapons = [
             'AWP',
+            'Bayonet',
+            'Bowie Knife',
+            'Butterfly Knife',
+            'Classic Knife',
+            'Falchion Knife',
+            'Flip Knife',
             'Glock-18',
+            'Gut Knife',
+            'Huntsman Knife',
+            'Karambit',
+            'Kukri Knife',
             'M4A1-S',
+            'M9 Bayonet',
             'MAC-10',
             'MP7',
+            'Navaja Knife',
+            'Nomad Knife',
+            'Paracord Knife',
             'R8 Revolver',
-            'UMP-45'
+            'Shadow Daggers',
+            'Skeleton Knife',
+            'Stiletto Knife',
+            'Survival Knife',
+            'Talon Knife',
+            'UMP-45',
+            'Ursus Knife'
         ]
 
         self.configs = {

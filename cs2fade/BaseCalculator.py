@@ -1,4 +1,10 @@
-__date__ = "02.12.2024"
+__author__ = "Lukas Mahler"
+__version__ = "1.0.0"
+__date__ = "26.10.2025"
+__email__ = "m@hler.eu"
+__status__ = "Production"
+
+
 from cs2fade.RandomNumberGenerator import RandomNumberGenerator
 
 
