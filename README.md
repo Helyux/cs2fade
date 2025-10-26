@@ -5,7 +5,8 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Downloads][downloads-shield]][downloads-url]
+[![GPLv3 License][license-shield]][license-url]
 [![Xing][xing-shield]][xing-url]
 </div>
 
@@ -16,7 +17,7 @@ Python port of [@chescos](https://github.com/chescos) original
 Check out his repository for more information.  
 For a usage example, refer to [`example.py`](./example.py).
 
-If you notice any errors please feel free to open an issue or pull request.
+If you notice any errors, please feel free to open an issue or pull request.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -28,7 +29,9 @@ If you notice any errors please feel free to open an issue or pull request.
 [stars-url]: https://github.com/Helyux/cs2fade/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Helyux/cs2fade.svg?style=for-the-badge
 [issues-url]: https://github.com/Helyux/cs2fade/issues
-[license-shield]: https://img.shields.io/github/license/Helyux/cs2fade.svg?style=for-the-badge
+[downloads-shield]: https://img.shields.io/pepy/dt/cs2fade?style=for-the-badge
+[downloads-url]: https://pepy.tech/project/cs2fade
+[license-shield]: https://img.shields.io/badge/License-GPLv3-brightgreen.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2fade/blob/master/LICENSE
 [xing-shield]: https://img.shields.io/static/v1?style=for-the-badge&message=Xing&color=006567&logo=Xing&logoColor=FFFFFF&label
 [xing-url]: https://www.xing.com/profile/Lukas_Mahler10
