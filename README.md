@@ -7,7 +7,6 @@
 [![Issues][issues-shield]][issues-url]
 [![Downloads][downloads-shield]][downloads-url]
 [![GPLv3 License][license-shield]][license-url]
-[![Xing][xing-shield]][xing-url]
 </div>
 
 # cs2fade
@@ -33,5 +32,3 @@ If you notice any errors, please feel free to open an issue or pull request.
 [downloads-url]: https://pepy.tech/project/cs2fade
 [license-shield]: https://img.shields.io/badge/License-GPLv3-brightgreen.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2fade/blob/master/LICENSE
-[xing-shield]: https://img.shields.io/static/v1?style=for-the-badge&message=Xing&color=006567&logo=Xing&logoColor=FFFFFF&label
-[xing-url]: https://www.xing.com/profile/Lukas_Mahler10
