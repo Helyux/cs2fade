@@ -16,6 +16,29 @@ Python port of [@chescos](https://github.com/chescos) original
 Check out his repository for more information.  
 For a usage example, refer to [`example.py`](./example.py).
 
+## Quick start
+
+```python
+import cs2fade
+
+info = cs2fade.get("M4A1-S", 374)
+print(f"#{info.ranking} / {info.percentage} / {info.finish}")
+# => "#1 / 100.0 / fade"
+
+info = cs2fade.get("M4A1-S", 739)
+print(f"#{info.ranking} / {info.percentage} / {info.finish}")
+# => "#1 / 80.0 / fade"
+```
+
+The helper infers the correct finish for the given weapon. If you need low-level
+access to the calculators, the original classes remain available:
+
+```python
+from cs2fade import AcidFade
+
+fade = AcidFade.get_percentage("SSG 08", 374)
+```
+
 If you notice any errors, please feel free to open an issue or pull request.
 
 <!-- MARKDOWN LINKS & IMAGES -->
