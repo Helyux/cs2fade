@@ -15,6 +15,11 @@ if __name__ == "__main__":
     print(f"[{info.weapon}] with seed {info.seed}: {info.percentage}% [{info.finish}] (Rank {info.ranking})")
     # -> [M4A1-S] with seed 374: 100.0% [fade] (Rank 1)
 
+    # When the weapon is unambiguous, you can also specify the finish explicitly (Currently only needed for MAC-10)
+    info: FadeInfo = cs2fade.get("MAC-10", 42, finish="amber")
+    print(f"[{info.weapon}] with seed {info.seed}: {info.percentage}% [{info.finish}] (Rank {info.ranking})")
+    # -> [MAC-10] with seed 42: 85.25621271895585% [amber] (Rank 263)
+
 
     ### Lower level API
 

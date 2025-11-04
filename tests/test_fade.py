@@ -96,6 +96,25 @@ class TestFadeCalculators(unittest.TestCase):
         self.assertAlmostEqual(result.percentage, 100.00, places=2)
         self.assertEqual(result.ranking, 1)
 
+    def test_module_level_get_prefers_base_fade(self):
+        result = cs2fade.get("MAC-10", 42)
+        self.assertEqual(result.finish, "fade")
+        self.assertEqual(result.seed, 42)
+        self.assertAlmostEqual(result.percentage, 85.2562, places=4)
+        self.assertEqual(result.ranking, 263)
+
+    def test_module_level_get_allows_explicit_finish(self):
+        result = cs2fade.get("MAC-10", 42, finish="amber")
+        self.assertEqual(result.finish, "amber")
+
+    def test_module_level_get_rejects_unknown_finish(self):
+        with self.assertRaises(ValueError):
+            cs2fade.get("MAC-10", 42, finish="neon")
+
+    def test_module_level_get_rejects_mismatched_finish(self):
+        with self.assertRaises(ValueError):
+            cs2fade.get("SSG 08", 42, finish="fade")
+
 
 if __name__ == '__main__':
     unittest.main()
