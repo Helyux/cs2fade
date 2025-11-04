@@ -1,13 +1,14 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "26.10.2025"
+__date__ = "04.11.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
 
 import unittest
 
-from cs2fade import AcidFade, AmberFade, Fade
+import cs2fade
+from cs2fade import AcidFade, AmberFade, Fade, FadeInfo
 from cs2fade.BaseCalculator import FadePercentage
 
 
@@ -75,6 +76,25 @@ class TestFadeCalculators(unittest.TestCase):
         self.assertEqual(fade.seed, 763)
         self.assertAlmostEqual(fade.percentage, 100.00, places=2)
         self.assertEqual(fade.ranking, 1)
+
+    def test_module_level_get_defaults(self):
+        result = cs2fade.get("M4A1-S", 374)
+        self.assertIsInstance(result, FadeInfo)
+        self.assertEqual(result.weapon, "M4A1-S")
+        self.assertEqual(result.seed, 374)
+        self.assertEqual(result.finish, "fade")
+        self.assertAlmostEqual(result.percentage, 100.00, places=2)
+        self.assertEqual(result.ranking, 1)
+
+    def test_module_level_get_invalid_weapon(self):
+        with self.assertRaises(ValueError):
+            cs2fade.get("Imaginary Knife", 42)
+
+    def test_module_level_get_infers_unique_finish(self):
+        result = cs2fade.get("AUG", 763)
+        self.assertEqual(result.finish, "amber")
+        self.assertAlmostEqual(result.percentage, 100.00, places=2)
+        self.assertEqual(result.ranking, 1)
 
 
 if __name__ == '__main__':
