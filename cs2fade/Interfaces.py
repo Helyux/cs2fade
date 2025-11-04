@@ -73,3 +73,6 @@ def get(weapon: str, seed: int) -> FadeInfo:
         ranking=result.ranking,
         finish=resolved_finish,
     )
+
+if __name__ == '__main__':
+    exit(1)
